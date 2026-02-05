@@ -10,7 +10,6 @@ const createResponse = (content, type, status) => {
 const handleRequest = (request, BOARD, players) => {
   const { pathname } = new URL(request.url);
   const input = pathname.at(-1);
-
   players.play(BOARD, input - 1);
   const content = page(BOARD);
 
