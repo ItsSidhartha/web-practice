@@ -1,32 +1,16 @@
-const formatResponseLine = (responseLine) => {
-  return `${responseLine.protocol} ${responseLine.statusCode} ${responseLine.message}`;
-};
-
-const formatHeaders = (headers) =>
-  Object.entries(headers)
-    .map(([name, value]) => `${name}: ${value}`)
-    .join("\r\n");
-
-const formatResponse = (response) => {
-  const responseLine = formatResponseLine(response.responseLine);
-  const headers = formatHeaders(response.headers);
-
-  return [responseLine, headers, "", response.body].join("\r\n");
-};
-
-class HttpResponse {
+class Response {
   constructor(protocol) {
     this.responseLine = { protocol };
     this.headers = {};
   }
 
-  setHtml(content) {
+  setHtmlHeaderAndContent(content) {
     this.headers["content-type"] = "text/html";
     this.headers["content-length"] = content.length;
     this.body = content;
   }
 
-  setJSON(json) {
+  setJsonHeaderAndContent(json) {
     this.body = JSON.stringify(json);
     this.headers["content-type"] = "application/json";
     this.headers["content-length"] = content.length;
@@ -59,8 +43,8 @@ const getContent = async (path) => {
 export const handleRequest = async (request) => {
   const path = request.path;
   const content = await getContent(path);
-  const response = new HttpResponse(request.protocol);
-  response.setHtml(content.body);
+  const response = new Response(request.protocol);
+  response.setHtmlHeaderAndContent(content.body);
   response.setResponseLine(content.status);
   // const mockResponse = {
   //   responseLine: {
@@ -75,5 +59,5 @@ export const handleRequest = async (request) => {
   //   },
   // };
 
-  return formatResponse(response);
+  return response;
 };

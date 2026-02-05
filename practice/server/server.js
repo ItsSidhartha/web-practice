@@ -1,43 +1,50 @@
-const main = async () => {
-  const listener = await Deno.listen({ port: 8000 });
-  console.log("Server running on http://localhost:8000");
-  for await (const conn of listener) {
-    handleConn(conn);
-  }
+import { PATHS } from "./paths.js";
+
+const createResponseLine = (protocol, code) => {
+  const messages = {
+    200: "OK",
+    404: "NOT FOUND",
+  };
+
+  return `${protocol} ${code} ${messages[code]}`;
 };
 
-const greeting = Deno.readTextFileSync("./greeting.html");
-const pradipJana = Deno.readTextFileSync("./jana.html");
-
-const createResponseLine = () => "HTTP/1.1 200 OK";
 const createHeaders = (headers) => {
   return Object.entries(headers)
     .map(([name, value]) => `${name}: ${value}`)
     .join("\r\n");
 };
 
-const createSuccessResponse = (content) => {
+const createResponse = (content, protocol, code) => {
   const headers = {
     "Content-Type": "text/html",
     "Content-Length": content.length,
     "Date": new Date(),
-    "Batch": "step-batch-11"
-  }
+    "Batch": "step-batch-11",
+  };
+
   const response = [
-    createResponseLine(), createHeaders(headers), "", content
+    createResponseLine(protocol, code),
+    createHeaders(headers),
+    "",
+    content,
   ].join("\r\n");
 
   return response;
 };
 
-const createNotFoundResponse = () => {
-  return `HTTP/1.1 404 NOT FOUND\r\nContent-Type: text/html\r\n\r\n<h3>NOT FOUND</h3>`;
+const getContent = (path) => {
+  if (!(path in PATHS)) {
+    return Deno.readTextFileSync(`./not_found.html`);
+  }
+
+  return Deno.readTextFileSync(PATHS[path]);
 };
 
-const decoder = new TextDecoder();
-const encoder = new TextEncoder();
+const decode = (bytes) => new TextDecoder().decode(bytes);
+const encode = (text) => new TextEncoder().encode(text);
 
-const handleConn = async (conn) => {
+const readRequest = async (conn) => {
   const buf = new Uint8Array(1024);
 
   const n = await conn.read(buf);
@@ -45,20 +52,38 @@ const handleConn = async (conn) => {
     console.log("Connection closed");
     conn.close();
   }
-  const request = decoder.decode(buf.slice(0, n));
-  const [requestLine] = request.split("\r\n");
-  const [method, path, protocol] = requestLine.split(" ");
+  return decode(buf.slice(0, n));
+};
+
+const displayRequest = (method, path, protocol) => {
   console.log(`Method = ${method}, path = ${path}, protocol = ${protocol}`);
+};
 
-  if (path === "/jana.html") {
-    await conn.write(encoder.encode(createSuccessResponse(pradipJana)));
-  } else if (path === "/greeting.html" || path === "/") {
-    await conn.write(encoder.encode(createSuccessResponse(greeting)));
-  } else {
-    await conn.write(encoder.encode(createNotFoundResponse()));
-  }
+const parseRequest = (request) => {
+  const [requestLine] = request.split("\r\n");
+  return requestLine.split(" ");
+};
 
+const writeResponse = async (conn, response) => {
+  await conn.write(encode(response));
+};
+
+const handleConn = async (conn) => {
+  const request = await readRequest(conn);
+  const [method, path, protocol] = parseRequest(request);
+  displayRequest(method, path, protocol);
+  const content = getContent(path);
+  const response = createResponse(content, protocol, 200);
+  await writeResponse(conn, response);
   await conn.close();
+};
+
+const main = async () => {
+  const listener = await Deno.listen({ port: 8000 });
+  console.log("Server running on http://localhost:8000");
+  for await (const conn of listener) {
+    handleConn(conn);
+  }
 };
 
 main();
