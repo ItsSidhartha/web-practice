@@ -5,11 +5,11 @@ const createResponse = (content, type, status) => {
   });
 };
 
-const requestHandler = (request, db) => {
+const requestHandler = async (request, db) => {
   const { method, url } = request;
   const { pathname } = new URL(url);
   console.log({ method, pathname });
-  
+
   if (pathname === "/") {
     const content = Deno.readTextFileSync("./pages/home.html");
     return createResponse(content, "text/html", 200);
@@ -24,8 +24,11 @@ const requestHandler = (request, db) => {
     const content = Deno.readTextFileSync("./pages/registation.html");
     return createResponse(content, "text/html", 200);
   }
-  
-  return new Response("Hello");
+
+  if (pathname === "/createAccount" && method === "POST") {
+    const data = await request.json();
+    console.log(data);
+  }
 };
 
 export const createRequestHandler = (db) => {

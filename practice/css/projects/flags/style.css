@@ -1,0 +1,32 @@
+#container {
+  height: 100%;
+}
+
+.flag {
+  display: inline-block;
+  height: 100px;
+  width: 150px;
+  border: 2px solid rgb(63, 57, 57);
+  margin-top: 5px;
+}
+
+.img-container {
+  margin: 0 auto;
+  height: 50px;
+  width: 100%;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.img-container img {
+  margin: 0 auto;
+  border: 1px solid black;
+  height: 100%;
+}
+
+.name {
+  margin-top: 4px;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+}

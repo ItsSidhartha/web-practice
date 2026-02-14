@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tables</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 18px;
+      background: #f4f6f8;
+      padding: 40px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border: 2px solid black;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid #888;
+    }
+
+    .table tbody tr:nth-child(odd) {
+      background-color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Priyanshu</td>
+        <td>21</td>
+        <td>UK</td>
+      </tr>
+      <tr>
+        <td>Ayush</td>
+        <td>19</td>
+        <td>DL</td>
+      </tr>
+      <tr>
+        <td>Javed</td>
+        <td>20</td>
+        <td>AP</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

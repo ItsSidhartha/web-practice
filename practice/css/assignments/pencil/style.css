@@ -1,0 +1,52 @@
+* {
+  font-family: serif;
+  background-color: ghostwhite;
+}
+
+body {
+  padding: 0px 50px;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+p {
+  font-family: sans-serif;
+  font-weight: 200;
+  font-size: 9px;
+  color: #444;
+  line-height: 1.5em;
+}
+
+#intro {
+  border-bottom: 0.7px solid rgba(155, 155, 155, 0.5);
+  padding-bottom: 1em;
+}
+
+#intro-heading{
+  margin-bottom: 9px;
+}
+
+#changing-habits {
+  border: 0.7px solid rgba(155, 155, 155, 0.5);
+  padding: 0em 1em 1em 1em;
+  margin-top: 25px;
+}
+
+.bottom-boarder {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5em;
+}

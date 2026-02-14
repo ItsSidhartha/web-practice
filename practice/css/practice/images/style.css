@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+}
+
+.flag-container {
+  height: 100px;
+}
+
+img {
+  height: 100%;
+}
+
+body{
+  height: 100%;
+
+}
+
+.indian-flag {
+  margin: 10px auto;
+  height: 300px;
+  /* border: 0.5px solid black; */
+  /* box-shadow: 10px 10px 10px 10px white; */
+  width: 450px;
+}
+
+.strip{
+  width: 100%;
+  height: 100px;
+}
+
+#top {
+  background-color: #ff671f;
+}
+#middle {
+  /* width: 100%;
+  padding: 0 auto; */
+  display: flex;
+  background-color: #fff;
+  justify-content: center;
+}
+#bottom {
+  background-color: #046a38;
+}
+
+#ashoka-chakra {
+  
+}
