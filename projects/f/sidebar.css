@@ -1,0 +1,90 @@
+.sidebar {
+  height: 100vh;
+  width: 17%;
+  font-size: 28px;
+  text-decoration: none;
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  position: fixed;
+  overflow: scroll;
+}
+
+.sidebar a{
+  text-decoration: none;
+  color: rgb(96, 96, 96);
+}
+
+.option {
+  padding: 5px;
+  padding-left: 25px;
+}
+
+.option:hover {
+  color: white;
+}
+
+#all:hover {
+  background-color: var(--all);
+}
+#bug:hover {
+  background-color: var(--bug);
+}
+#dark:hover {
+  background-color: var(--dark);
+}
+#dragon:hover {
+  background-color: var(--dragon);
+}
+#electric:hover {
+  background-color: var(--electric);
+}
+#fairy:hover {
+  background-color: var(--fairy);
+}
+#fighting:hover {
+  background-color: var(--fighting);
+}
+#fire:hover {
+  background-color: var(--fire);
+}
+#flying:hover {
+  background-color: var(--dark);
+}
+#ghost:hover {
+  background-color: var(--ghost);
+}
+#grass:hover {
+  background-color: var(--grass);
+}
+#ground:hover {
+  background-color: var(--ground);
+}
+#ice:hover {
+  background-color: var(--ice);
+}
+#normal:hover {
+  background-color: var(--normal);
+}
+#poison:hover {
+  background-color: var(--poison);
+}
+#psychic:hover {
+  background-color: var(--psychic);
+}
+#rock:hover {
+  background-color: var(--rock);
+}
+#steel:hover {
+  background-color: var(--steel);
+}
+#water:hover {
+  background-color: var(--water);
+}
+
+#current {
+  color: white;
+}
+

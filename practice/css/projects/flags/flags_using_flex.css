@@ -9,15 +9,17 @@
 }
 
 #flex {
+  height: 400px;
+  width: 100%;
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 30px;
 }
 
 .container {
-  height: 90px;
-  width: 200px;
+  height: 200px;
+  width: 400px;
   border: 1px solid black;
   display: flex;
   justify-content: center;
