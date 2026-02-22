@@ -1,10 +1,9 @@
 import { createRequestHandler } from "./src/request_handler.js";
-import { Players } from "./src/players.js";
+import { Game } from "./src/game.js";
 
 const main = () => {
-  const board = new Array(9).fill("&nbsp;&nbsp;");
-  const players = new Players();
-  const handleRequest = createRequestHandler(board, players);
+  const game = new Game();
+  const handleRequest = createRequestHandler(game);
   Deno.serve({ port: 8000 }, handleRequest);
 };
 
