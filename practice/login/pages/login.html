@@ -1,18 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <body>
-  <h1>Log in</h1>
-  <div>
-    <div>
-      <p>Enter Mobile No &colon;&dash;</p>
-      <input type="text" id="mobileNo" placeholder="Mobile No">
-    </div>
-    <div>
-      <p>Enter Password &colon;&dash;</p>
-      <input type="password" id="password" placeholder="Password">
-    </div>
-    <div>
-      <a href="/user">log in</a>
-    </div>
-  </div>
+  <form action="/login" method="post">
+
+    <label for="name">Enter Full name</label>
+    <input type="text" name="name" placeholder="Full name">
+
+    <label for="password">Enter Password</label>
+    <input type="password" name="password" placeholder="Password">
+
+    <button type="submit">Login</button>
+  </form>
 </body>
 </html>

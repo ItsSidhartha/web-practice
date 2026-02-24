@@ -12,7 +12,7 @@ export class Customers {
 );`);
   }
 
-  addCustomer(name, age, password) {
+  addCustomer(name, age, password) {    
     const query = this.db.prepare(
       `INSERT INTO customers (name, age, password) VALUES(?, ?, ?);`,
     );
