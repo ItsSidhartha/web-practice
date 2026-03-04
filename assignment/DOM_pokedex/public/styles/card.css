@@ -8,9 +8,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  width: 81%;
-  margin-left: 19%;
-  padding-top: 20px;
+  width: 100%;
+  padding: 20px;
 }
 
 .card {

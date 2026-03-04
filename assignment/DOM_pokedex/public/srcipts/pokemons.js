@@ -85,10 +85,8 @@ const createCard = (pokemon) => {
   return card;
 }
 
-export const createMain = (pokemons) => {
-  const main = document.createElement("div");
+export const addCardsToMain = (main, pokemons) => {
   main.classList.add("main");
   const cards = pokemons.map(createCard);
   main.append(...cards);
-  return main;
 }
