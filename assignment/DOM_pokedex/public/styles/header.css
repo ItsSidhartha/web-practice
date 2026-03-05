@@ -3,16 +3,19 @@ header {
   width: 100vw;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 30px;
 }
 
 header form {
   display: flex;
   gap: 20px;
+  padding: 10px;
 }
 
 header select {
-  height: 45px;
+  text-transform: capitalize;
+  height: 50px;
   width: 100px;
   font-size: 24px;
 }
@@ -20,11 +23,13 @@ header select {
 header input {
   width: 300px;
   font-size: 24px;
-  height: 40px;
+  padding: 10px;
+  height: 100%;
 }
 
 header button {
   font-size: 24px;
   width: 100px;
-  height: 45px;
+  padding: 10px;
+  height: 100%;
 }
