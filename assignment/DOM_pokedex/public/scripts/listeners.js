@@ -1,4 +1,4 @@
-import { filterPokemonByToken, filterPokemonByType } from "./data_manupulation.js";
+import { filterPokemonByToken, filterPokemonByType } from "./data.js";
 import { render } from "./render.js";
 
 const addListenerToSelect = (header, pokemons) => {

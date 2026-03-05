@@ -1,5 +1,5 @@
 import { createFragment } from "./fragment.js";
-import { createCardsTemplate } from "./pokemons.js";
+import { createCardsTemplate } from "./templates.js";
 
 export const render = (pokemons) => {
   const main = document.querySelector("main");

@@ -1,5 +1,3 @@
-import { createFragment } from "./fragment.js";
-
 const createTypeTemplate = (type) => [
   "div",
   {},
@@ -10,16 +8,16 @@ const createTypeTemplate = (type) => [
   ]
 ]
 
-const createTypeElements = (types) => types.map(createTypeTemplate)
+const createTypeTemplates = (types) => types.map(createTypeTemplate)
 
-const createStatRow = ([parameter, value]) => [
+const createStatRowTemplate = ([parameter, value]) => [
   "tr",
   {},
   ["td", { class: "parameter" }, parameter],
   ["td", { class: "value" }, `${value}`]
 ];
 
-const createStatRows = (stats) => Object.entries(stats).map(createStatRow);
+const createStatRowTemplates = (stats) => Object.entries(stats).map(createStatRowTemplate);
 
 
 export const createCardTemplate = (pokemon) => {
@@ -34,7 +32,7 @@ export const createCardTemplate = (pokemon) => {
     [
       "div",
       { class: "types" },
-      ...createTypeElements(pokemon.types)
+      ...createTypeTemplates(pokemon.types)
     ]
   ];
 
@@ -44,11 +42,11 @@ export const createCardTemplate = (pokemon) => {
     [
       "tbody",
       {},
-      ...createStatRows(pokemon.stats)
+      ...createStatRowTemplates(pokemon.stats)
     ]
   ];
 
-  const imgContainer = [
+  const imgContainerTemplates = [
     "div",
     { class: "img-container" },
     [
@@ -58,7 +56,7 @@ export const createCardTemplate = (pokemon) => {
     ]
   ];
 
-  const infoContainer = [
+  const infoContainerTemplates = [
     "div",
     { class: "info-container" },
     headerTemplate,
@@ -68,13 +66,13 @@ export const createCardTemplate = (pokemon) => {
   const cardTemplate = [
     "div",
     { class: "card" },
-    imgContainer,
-    infoContainer
+    imgContainerTemplates,
+    infoContainerTemplates
   ];
 
   return cardTemplate;
 }
 
 export const createCardsTemplate = (pokemons) => {
-  return pokemons.map(createCardTemplate)
+  return pokemons.map(createCardTemplate);
 }

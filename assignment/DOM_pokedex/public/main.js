@@ -1,7 +1,7 @@
 import { render } from "./scripts/render.js";
 import { addOptionsToHeader } from "./scripts/header.js";
 import { addListenersToHeader } from "./scripts/listeners.js";
-import { fetchPokemons } from "./scripts/fetch.js";
+import { fetchPokemons } from "./scripts/data.js";
 
 
 
