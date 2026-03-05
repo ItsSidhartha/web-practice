@@ -43,6 +43,12 @@ const main = async () => {
 
 main();
 
+File: public/scripts/fetch.js
+export const fetchPokemons = async (type) => {
+  const pathname = type === "all" ? `/get-pokemons` : `/get-pokemons${"/" + type}`;
+  return await fetch(pathname).then(x => x.json());
+}
+
 File: public/scripts/fragment.js
 export const createFragment = (tag, attrbutes, ...content) => {
   const element = document.createElement(tag);
@@ -77,22 +83,28 @@ export const addOptionsToHeader = (header, types) => {
 }
 
 File: public/scripts/listeners.js
-import { fetchPokemons, render } from "./render.js";
+import { render } from "./render.js";
 
-const addListenerToSelect = (header) => {
+const filterPokemonByType = (pokemons, type) => {
+  if (type === "all") return pokemons;
+  return pokemons.filter(pokemon => pokemon.types.includes(type));
+}
+
+
+const addListenerToSelect = (header, pokemons) => {
   const select = header.querySelector("select");
   select.addEventListener("change", () => {
-    const value = select.value;
-    fetchPokemons(value).then(res => render(res.pokemons));
+    const type = select.value;
+    render(filterPokemonByType(pokemons, type));
   });
 }
 
-const filterPokemons = (pokemons, token) =>
+const filterPokemonByToken = (pokemons, token) =>
   pokemons.filter(pokemon => pokemon.name.includes(token));
 
 const renderWhenInput = (e, pokemons) => {
   e.preventDefault();
-  render(filterPokemons(pokemons, e.target.value));
+  render(filterPokemonByToken(pokemons, e.target.value));
 }
 
 const addListenerToSearchBar = (header, pokemons) => {
@@ -101,7 +113,7 @@ const addListenerToSearchBar = (header, pokemons) => {
 }
 
 export const addListenersToHeader = (header, pokemons) => {
-  addListenerToSelect(header);
+  addListenerToSelect(header, pokemons);
   addListenerToSearchBar(header, pokemons);
 }
 
@@ -191,11 +203,6 @@ export const addCardsToMain = (main, pokemons) => {
 File: public/scripts/render.js
 import { addCardsToMain } from "./pokemons.js";
 
-export const fetchPokemons = async (type) => {
-  const pathname = type === "all" ? `/get-pokemons` : `/get-pokemons${"/" + type}`;
-  return await fetch(pathname).then(x => x.json());
-}
-
 export const render = (pokemons) => {
   const main = document.querySelector("main");
   main.innerHTML = "";
@@ -271,6 +278,8 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
@@ -279,6 +288,7 @@ body {
   gap: 40px;
   width: 100%;
   padding: 20px;
+  margin: 60px 0;
 }
 
 .card {
@@ -485,30 +495,38 @@ header {
   width: 100vw;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 30px;
+  position: fixed;
+  background-color: white;
 }
 
 header form {
   display: flex;
   gap: 20px;
+  padding: 10px;
 }
 
 header select {
-  height: 45px;
+  text-transform: capitalize;
+  height: 50px;
   width: 100px;
   font-size: 24px;
+  padding: 10px;
 }
 
 header input {
   width: 300px;
   font-size: 24px;
-  height: 40px;
+  padding: 10px;
+  height: 100%;
 }
 
 header button {
   font-size: 24px;
   width: 100px;
-  height: 45px;
+  padding: 10px;
+  height: 100%;
 }
 
 File: public/styles/sidebar.css
@@ -607,9 +625,12 @@ File: public/styles/sidebar.css
 
 
 File: public/main.js
-import { render, fetchPokemons } from "./scripts/render.js";
+import { render } from "./scripts/render.js";
 import { addOptionsToHeader } from "./scripts/header.js";
 import { addListenersToHeader } from "./scripts/listeners.js";
+import { fetchPokemons } from "./scripts/fetch.js";
+
+
 
 window.onload = async () => {
   const res = await fetchPokemons("all");

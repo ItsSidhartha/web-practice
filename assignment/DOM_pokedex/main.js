@@ -7,7 +7,6 @@ const main = async () => {
     .catch((_) => console.error("no data found") || []);
 
   const allTypes = distinct(pokemons.map(pokemon => pokemon.types).flat());
-  allTypes.unshift("all")
   const app = createApp(pokemons, allTypes);
   Deno.serve({ port: 8000 }, app.fetch);
 };

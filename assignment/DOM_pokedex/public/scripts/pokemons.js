@@ -22,7 +22,7 @@ const createStatRow = ([parameter, value]) => [
 const createStatRows = (stats) => Object.entries(stats).map(createStatRow);
 
 
-const createCard = (pokemon) => {
+export const createCardTemplate = (pokemon) => {
   const headerTemplate = [
     "div",
     { class: "header" },
@@ -72,10 +72,9 @@ const createCard = (pokemon) => {
     infoContainer
   ];
 
-  return createFragment(...cardTemplate);
+  return cardTemplate;
 }
 
-export const addCardsToMain = (main, pokemons) => {
-  const cards = pokemons.map(createCard);
-  main.append(...cards);
+export const createCardsTemplate = (pokemons) => {
+  return pokemons.map(createCardTemplate)
 }
