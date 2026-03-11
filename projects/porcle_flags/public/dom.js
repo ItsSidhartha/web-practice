@@ -2,7 +2,7 @@ export const createFragment = ([tag, attributes, ...contents]) => {
   const element = document.createElement(tag);
 
   Object.entries(attributes).forEach(([key, value]) =>
-    element.setAttribute(key, value)
+    element.setAttribute(key, value),
   );
 
   if (contents.length === 1 && !Array.isArray(contents[0])) {
@@ -21,4 +21,6 @@ export const ELEMENTS = {
   MAIN: "main",
   DIV: "div",
   IMG: "img",
+  BUTTON: "button",
+  P: "p",
 };
