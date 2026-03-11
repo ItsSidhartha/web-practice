@@ -17,9 +17,8 @@ const addListenerToCountries = () => {
     }
 
     targetCountry(parseInt(target.dataset.id));
-    updateFormInput()
+    updateFormInput();
   });
-
 };
 
 const revealName = (target, name) => {
@@ -35,22 +34,22 @@ const updateFormInput = () => {
 const removeTargetFromCountry = (id) => {
   const target = document.querySelector(`[data-id="${id}"]`);
   target.classList.remove("target");
-}
+};
 
 const targetCountry = (id) => {
   const target = document.querySelector(`[data-id="${id}"]`);
-  if (target.classList.contains("done")) return targetCountry(id + 1)
+  if (target.classList.contains("done")) return targetCountry(id + 1);
   CURRENT.target = target;
   target.classList.add("target");
-}
+};
 
 const markDone = (target) => {
-  target.classList.add("done")
-}
+  target.classList.add("done");
+};
 
 const updateForCorrectAnswer = (target, name) => {
   revealName(target, name);
-  markDone(target)
+  markDone(target);
   removeTargetFromCountry(parseInt(target.dataset.id));
   targetCountry(parseInt(target.dataset.id) + 1);
   updateFormInput();
@@ -81,7 +80,7 @@ const { SECTION, DIV, IMG } = ELEMENTS;
 const createCountryCard = ({ name, id, src }) => {
   const template = [
     SECTION,
-    { class: "card", "data-id" : id },
+    { class: "card", "data-id": id },
     [DIV, { class: "img-container" }, [IMG, { src, alt: name }, ""]],
     [DIV, { class: "text-container" }, ""],
   ];

@@ -7,17 +7,18 @@ const filterCountries = (countries, continent) =>
 
 const normalize = (text) => text.split(/[-_ ]/).join("").toLowerCase();
 
+const isCorrect = (names, input) =>
+  names.some((name) => normalize(name) === normalize(input));
+
 export const createApp = (countries) => {
   const app = new Hono();
   app.use(logger());
 
   app.post("/guess", async (c) => {
     const { input, currentId } = await c.req.json();
+    const { names } = countries.find((country) => country.id === currentId);
 
-    const { name } = countries.find((country) => country.id === currentId);
-    console.log(name, input);
-
-    const resBody = { name, isCorrect: normalize(name) === normalize(input) };
+    const resBody = { name: names[0], isCorrect: isCorrect(names, input) };
     return c.json(resBody);
   });
 
