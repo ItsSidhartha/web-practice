@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "dev": "deno run -A --watch main.js"
+  },
+  "imports": {
+    "hono": "npm:hono@^4.12.3"
+  }
+}
