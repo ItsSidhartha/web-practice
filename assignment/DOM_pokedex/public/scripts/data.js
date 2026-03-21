@@ -6,7 +6,10 @@ export const filterPokemonByType = (pokemons, type) => {
   return pokemons.filter(pokemon => pokemon.types.includes(type));
 }
 
-export const fetchPokemons = async (type) => {
-  const pathname = type === "all" ? `/get-pokemons` : `/get-pokemons${"/" + type}`;
-  return await fetch(pathname).then(x => x.json());
+export const fetchPokemons = () => {
+  return fetch("/pokemons").then(x => x.json());
+}
+
+export const fetchTypes = () => {
+  return fetch("/types").then(res => res.json());
 }

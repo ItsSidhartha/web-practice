@@ -1,5 +1,12 @@
-import { url } from "node:inspector";
 import { createUserPage } from "../pages/user_page.js";
+
+const parseCookie = (req) => {
+  const cookies = req.headers.get("cookie") || "";
+  return Object.fromEntries(
+    cookies.split(";")
+      .map((cookie) => cookie.trim().split("=")),
+  );
+};
 
 const createResponse = (content, type, status) => {
   return new Response(content, {
@@ -8,25 +15,46 @@ const createResponse = (content, type, status) => {
   });
 };
 
-const serveHomePage = () => {
+const redirectToProfile = (cookie) => {
+  return new Response(null, {
+    status: 303,
+    headers: {
+      location: `/profile?username=${cookie.username}`,
+    },
+  });
+};
+
+const serveHomePage = (request) => {
+  const cookie = parseCookie(request);
+  if (cookie.username) {
+    return redirectToProfile(cookie);
+  }
   const content = Deno.readTextFileSync("./pages/home.html");
   return createResponse(content, "text/html", 200);
 };
 
-const serveLoginPage = () => {
+const serveLoginPage = (request) => {
+  const cookie = parseCookie(request);
+  if (cookie.username) {
+    return redirectToProfile(cookie);
+  }
   const content = Deno.readTextFileSync("./pages/login.html");
   return createResponse(content, "text/html", 200);
 };
 
-const serveSignupPage = () => {
+const serveSignupPage = (request) => {
+  const cookie = parseCookie(request);
+  if (cookie.username) {
+    return redirectToProfile(cookie);
+  }
   const content = Deno.readTextFileSync("./pages/registation.html");
   return createResponse(content, "text/html", 200);
 };
 
 const serveProfileRequest = (url, db) => {
   const searchParams = new URLSearchParams(url.search);
-  const name = searchParams.get("name");
-  const customer = db.fetchCustomer(name);
+  const username = searchParams.get("username");
+  const customer = db.fetchCustomer(username);
   const profile = createUserPage(customer);
 
   return new Response(profile, {
@@ -37,14 +65,14 @@ const serveProfileRequest = (url, db) => {
   });
 };
 
-const serveGETRequest = (url, db) => {
+const serveGETRequest = (request, url, db) => {
   switch (url.pathname) {
     case "/":
-      return serveHomePage();
+      return serveHomePage(request);
     case "/login":
-      return serveLoginPage();
+      return serveLoginPage(request);
     case "/signup":
-      return serveSignupPage();
+      return serveSignupPage(request);
     case "/profile":
       return serveProfileRequest(url, db);
     default:
@@ -59,6 +87,8 @@ const serveCreateRequest = (body, db) => {
   const data = Object.fromEntries(params);
 
   if (isValidInput(data)) {
+    console.log(data);
+    
     db.addCustomer(data.name, +data.age, data.password);
   }
 
@@ -79,14 +109,14 @@ const serveLoginRequest = (body, db) => {
 
   const data = Object.fromEntries(params);
 
-  if (db.doesCustomerExists(data.name)) {
-    const customer = db.fetchCustomer(data.name);
+  if (db.doesCustomerExists(data.username)) {
+    const customer = db.fetchCustomer(data.username);
     if (isCorrectPassword(customer, data.password)) {
       return new Response(null, {
         status: 303,
         headers: {
-          "Set-Cookie": `name=${data.name}`,
-          location: `/profile?name=${data.name}`,
+          "Set-Cookie": `username=${data.username}`,
+          location: `/profile?username=${data.username}`,
         },
       });
     }
@@ -117,7 +147,7 @@ const requestHandler = async (request, db) => {
   const body = await request.text();
 
   if (method === "GET") {
-    return serveGETRequest(url, db);
+    return serveGETRequest(request, url, db);
   }
   if (method === "POST") {
     return servePOSTRequest(url, body, db);

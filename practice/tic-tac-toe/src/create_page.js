@@ -14,7 +14,6 @@ const page = (board, currPlayer, symbol) =>
     }
 
     .board {
-      background-color: beige;
       width: 306px;
       height: 306px;
       display: flex;
@@ -24,7 +23,7 @@ const page = (board, currPlayer, symbol) =>
     .cell {
       height: 100px;
       width: 100px;
-      background-color: grey;
+      background-color: skyblue;
       border: 1px solid red;
       display: flex;
       justify-content: center;
@@ -106,7 +105,7 @@ const gameOverPage = (board, msg) =>
     .cell {
       height: 100px;
       width: 100px;
-      background-color: grey;
+      background-color: skyblue;
       border: 1px solid red;
       display: flex;
       justify-content: center;
@@ -138,7 +137,7 @@ const gameOverPage = (board, msg) =>
       margin: 0;
       padding: 5px;
     }
-       .result a {
+      .result a {
       font-size: 25px;
       border: 2px solid skyblue;
       padding: 5px;

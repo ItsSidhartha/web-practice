@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5501/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="./Document_files/style.css">
+</head>
+<body>
+  <header>
+    <hgroup>
+      <h1>The Future of Urban Farming</h1>
+      <p>Growing Food in the Concrete Jungle</p>
+    </hgroup>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="http://127.0.0.1:5501/index.html">Home</a></li>
+      <li><a href="http://127.0.0.1:5501/index.html">Articles</a></li>
+      <li><a href="http://127.0.0.1:5501/index.html">Projects</a></li>
+      <li><a href="http://127.0.0.1:5501/index.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <article>
+      <header>
+        <hgroup>
+          <h2>Rooftop Gardens Are Changing Cities</h2>
+            <p>
+              Urban farming is transforming unused city spaces into productive green zones. Rooftop gardens are
+              leadingthis
+              change.
+            </p>
+        </hgroup>
+        <p>By Maria Lopez</p>
+        <p>Published on: <time datetime="2026-03-15">March 15, 2026</time></p>
+      </header>
+      <section>
+        <h4>Why Rooftop Gardens Matter</h4>
+        <p>
+          Cities face food insecurity and environmental stress. Rooftop gardens reduce heat and improve air quality.
+          <mark>Urban farms can reduce city temperatures by 2°C.</mark>
+        </p>
+        <data value="500 kg per year">Average yield per rooftop: 500 kg per year</data>
+      </section>
+      <section>
+        <h4>Real-World Example</h4>
+        <p>In 2024, the SkyGrow Project launched in New York City.</p>
+        <figure>
+          <img src="http://127.0.0.1:5501/index.html" alt="Photo of a rooftop garden in NYC">
+          <figcaption>Volunteers planting vegetables at SkyGrow Project.</figcaption>
+        </figure>
+      </section>
+
+      <details>
+        <summary>Project Funding</summary>
+        The initial investment was $250,000.
+      </details>
+      <aside>Related Article: Community Gardens in Schools</aside>
+      <p>Rooftop farming is more than a trend; it is a sustainable movement.</p>
+    </article>
+
+    <address>
+      <p>Contact Information: Urban Green Initiative 123 Greenway Blvd New York, NY</p>
+      <p>Email: info@urbangreen.org</p>
+    </address>
+  </main>
+
+  <footer>
+    © 2026 Urban Green Initiative Last updated: April 1, 2026
+  </footer>
+  <!-- <dialog open>Subscribe to our newsletter for updates!</dialog> -->
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>

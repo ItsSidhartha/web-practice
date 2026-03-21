@@ -1,4 +1,5 @@
 import { createFragment, ELEMENTS } from "./dom.js";
+import { renderElements, renderReport } from "./render.js";
 
 const fetchCountries = async (continent = "all") => {
   const res = await fetch(`/countries/${continent}`);
@@ -77,43 +78,6 @@ const addListenerToForm = () => {
   });
 };
 
-const { SECTION, DIV, IMG, P, BUTTON } = ELEMENTS;
-
-const createCountryCard = ({ name, id, src }) => {
-  const template = [
-    SECTION,
-    { class: "card", "data-id": id },
-    [DIV, { class: "img-container" }, [IMG, { src, alt: name }, ""]],
-    [DIV, { class: "text-container" }, ""],
-  ];
-  return createFragment(template);
-};
-
-const createElements = (countries) => {
-  const main = document.querySelector("main");
-  main.append(...countries.map(createCountryCard));
-
-  document.body.appendChild(main);
-};
-
-const createReport = (report) => {
-  const scoreTemplate = [
-    P,
-    { class: "score" },
-    `Score: ${report.correct}/${report.total}`,
-  ];
-
-  const retryBtnTemplate = [BUTTON, { id: "retry-button" }, "Retry"];
-  return [createFragment(scoreTemplate), createFragment(retryBtnTemplate)];
-};
-
-const renderReport = (report) => {
-  const header = document.querySelector("header");
-  const [score, retryBtn] = createReport(report);
-  header.replaceChildren(score, retryBtn);
-  retryBtn.onclick = () => window.location.reload();
-};
-
 const revealAllNames = async () => {
   const cards = document.querySelectorAll(".card");
   await fetch("/countries/all")
@@ -127,42 +91,93 @@ const revealAllNames = async () => {
     });
 };
 
-const startTimer = () => {
-  const timer = document.querySelector("#timer");
-  const minutesElement = timer.querySelector("#minutes");
-  const secondsElement = timer.querySelector("#seconds");
-  minutesElement.textContent = "20";
-  secondsElement.textContent = "00";
+const endGame = async () => {
+  await revealAllNames();
+  await fetch("/report")
+    .then((res) => res.json())
+    .then(renderReport);
+};
 
-  const id = setInterval(async () => {
-    const curSec = parseInt(secondsElement.textContent);
-    const curMin = parseInt(minutesElement.textContent);
-    if (curSec === 1 && curMin === 0) {
-      clearInterval(id);
-      await revealAllNames();
-      await fetch("/report")
-        .then((res) => res.json())
-        .then(renderReport);
-      return;
-    }
-
-    if (curSec === 0) {
-      secondsElement.textContent = 59;
-      minutesElement.textContent = (parseInt(minutesElement.textContent) - 1)
-        .toString()
-        .padStart("0", 2);
-    }
-
-    secondsElement.textContent = (parseInt(secondsElement.textContent) - 1)
+const decrementTimer = (secElement, minElement) => {
+  if (Number(secElement.textContent) === 0) {
+    secElement.textContent = "59";
+    minElement.textContent = (parseInt(minElement.textContent) - 1)
       .toString()
-      .padStart("0", 2);
+      .padStart(2, "0");
+    return;
+  }
+
+  secElement.textContent = (parseInt(secElement.textContent) - 1)
+    .toString()
+    .padStart(2, "0");
+};
+
+const startTimer = (secElement, minElement) => {
+  const id = setInterval(async () => {
+    decrementTimer(secElement, minElement);
+    const currSec = Number(secElement.textContent);
+    const currMin = Number(minElement.textContent);
+
+    const isTimeUp = currSec === 0 && currMin === 0;
+
+    if (isTimeUp) {
+      clearInterval(id);
+      endGame();
+    }
   }, 1000);
+  
+  return id;
+};
+
+const setTimer = () => {
+  const timer = document.querySelector("#timer");
+  const minElement = timer.querySelector("#minutes");
+  const secElement = timer.querySelector("#seconds");
+  minElement.textContent = "20";
+  secElement.textContent = "00";
+  startTimer(secElement, minElement);
+};
+
+const resumeGame = (container, target) => {
+  const input = container.querySelector("input");
+  input.disabled = false;
+  const enterBtn = container.querySelector("#enter");
+  enterBtn.disabled = false;
+  pauseTimer();
+  target.textContent = "Pause";
+  target.id = "pause-button";
+};
+
+const pauseGame = (container, target) => {
+  const input = container.querySelector("input");
+  input.disabled = true;
+  const enterBtn = container.querySelector("#enter");
+  enterBtn.disabled = true;
+  resumeTimer();
+  target.textContent = "Resume";
+  target.id = "resume-button";
+};
+
+const ACTIONS = {
+  "pause-button": pauseGame,
+  "resume-button": resumeGame,
+  "give-up-button": endGame,
+};
+
+const addListenerToHeader = () => {
+  const header = document.querySelector("header");
+  header.addEventListener("click", (e) => {
+    const action = e.target.id;
+    const handler = ACTIONS[action];
+    if (handler) handler(header, e.target);
+  });
 };
 
 const main = async () => {
   const countries = await fetchCountries();
-  createElements(countries);
-  startTimer();
+  renderElements(countries);
+  setTimer();
+  addListenerToHeader();
   addListenerToCountries();
   addListenerToForm();
 };

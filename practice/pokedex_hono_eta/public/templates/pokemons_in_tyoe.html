@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PokeDex</title>
+  <link rel="stylesheet" href="/styles/card.css">
+  <link rel="stylesheet" href="/styles/colors.css">
+  <link rel="stylesheet" href="/styles/sidebar.css">
+  <link rel="stylesheet" href="/styles/background.css">
+</head>
+<body>
+  <div class="sidebar">
+    <a href="/">
+      <div class="option" id="all">
+        all
+      </div>
+    </a>
+    <% it.allTypes.forEach(type=> { %>
+      <a href="/type/<%= type %>">
+        <div class="option <% if(type === it.type) {%><%= type %><% } %>"
+          id="<% if(type === it.type) {%>current<% } %><% if(type !== it.type) {%><%= type %><% } %>">
+          <%= type %>
+        </div>
+      </a>
+      <% }) %>
+  </div>
+  <div class="main">
+    <% it.pokemons.forEach(pokemon=> {%>
+      <div class="card">
+        <div class="img-container"
+          style="background: linear-gradient(<% pokemon.types.forEach((type)=> {%>var(--<%= type %>), <% }) %>var(--test))"
+          ;>
+          <img src="<%= pokemon.picURL %>" alt="<%= pokemon.name %>">
+        </div>
+        <div class="info-container">
+          <div class="header">
+            <div class="name">
+              <%= pokemon.name %>
+            </div>
+            <div class="types">
+              <% pokemon.types.forEach((type)=> {%>
+                <div>
+                  <p class="<%= type %>">
+                    <%= type %>
+                  </p>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+          <table class="stats">
+            <tbody>
+              <tr class="table-border">
+                <td class="parameter">Weight</td>
+                <td class="value">
+                  <%= pokemon.stats.weight%>
+                </td>
+              </tr>
+              <tr class="table-border">
+                <td class="parameter">Base XP</td>
+                <td class="value">
+                  <%= pokemon.stats.baseXP%>
+                </td>
+              </tr>
+              <tr class="table-border">
+                <td class="parameter">HP</td>
+                <td class="value">
+                  <%= pokemon.stats.hp%>
+                </td>
+              </tr>
+              <tr class="table-border">
+                <td class="parameter">Attack</td>
+                <td class="value">
+                  <%= pokemon.stats.attack%>
+                </td>
+              </tr>
+              <tr class="table-border">
+                <td class="parameter">Defense</td>
+                <td class="value">
+                  <%= pokemon.stats.defense%>
+                </td>
+              </tr>
+              <tr>
+                <td class="parameter">Speed</td>
+                <td class="value">
+                  <%= pokemon.stats.speed%>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <% }) %>
+
+  </div>
+</body>
+</html>

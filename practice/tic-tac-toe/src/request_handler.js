@@ -1,5 +1,4 @@
 import { createPage } from "./create_page.js";
-import { Game } from "./game.js";
 
 const createResponse = (content, type, status) => {
   return new Response(content, {
@@ -10,10 +9,10 @@ const createResponse = (content, type, status) => {
 
 const handleRequest = (request, game) => {
   const { pathname } = new URL(request.url);
-  const input = Number(pathname.at(-1));
   if (pathname === "/favicon.ico") return createResponse("", "text/html", 404);
   if (pathname === "/play-again") game.reset();
-
+  
+  const input = Number(pathname.at(-1));
   if (input) game.play(input - 1);
   const content = createPage(game);
 

@@ -9,10 +9,12 @@ body {
 .main {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center ;
   gap: 40px;
   width: 100%;
   padding: 20px;
-  margin: 60px 0;
+  margin: 80px 0;
+  box-sizing: border-box;
 }
 
 .card {

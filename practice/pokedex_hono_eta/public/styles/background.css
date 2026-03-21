@@ -1,0 +1,62 @@
+.all-page {
+  background: linear-gradient(var(--all), white);
+}
+
+.all-page {
+  background: linear-gradient(var(--all), white);
+}
+
+.bug-page {
+  background: linear-gradient(var(--bug), white);
+}
+.dark-page {
+  background: linear-gradient(var(--dark), white);
+}
+.dragon-page {
+  background: linear-gradient(var(--dragon), white);
+}
+.electric-page {
+  background: linear-gradient(var(--electric), white);
+}
+.fairy-page {
+  background: linear-gradient(var(--fairy), white);
+}
+.fighting-page {
+  background: linear-gradient(var(--fighting), white);
+}
+.fire-page {
+  background: linear-gradient(var(--fire), white);
+}
+.flying-page {
+  background: linear-gradient(var(--dark), white);
+}
+.ghost-page {
+  background: linear-gradient(var(--ghost), white);
+}
+.grass-page {
+  background: linear-gradient(var(--grass), white);
+}
+.ground-page {
+  background: linear-gradient(var(--ground), white);
+}
+.ice-page {
+  background: linear-gradient(var(--ice), white);
+}
+.normal-page {
+  background: linear-gradient(var(--normal), white);
+}
+.poison-page {
+  background: linear-gradient(var(--poison), white);
+}
+.psychic-page {
+  background: linear-gradient(var(--psychic), white);
+}
+.rock-page {
+  background: linear-gradient(var(--rock), white);
+}
+.steel-page {
+  background: linear-gradient(var(--steel), white);
+}
+.water-page {
+  background: linear-gradient(var(--water), white);
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>GRID-PRACTICE</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      height: 100vh;
+      width: 100vw;
+      background-color: skyblue;
+      display: grid;
+      grid-template: repeat(20, 70px) / repeat(20, 70px);
+      border: 1px solid black;
+    }
+
+    #item1 {
+      grid-area: 1/1/2/2;
+      background-color: #aaa;
+    }
+
+    #item2 {
+      grid-area: 2/2/3/3;
+      background-color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="item1"></div>
+    <div id="item2"></div>
+  </div>
+</body>
+</html>
