@@ -5,7 +5,7 @@ import { fetchPokemons, fetchTypes } from "./scripts/data.js";
 
 
 
-window.onload = async () => {
+globalThis.onload = async () => {
   const pokemons = await fetchPokemons("all");
   const allTypes = await fetchTypes();
   const header = document.querySelector("header");
